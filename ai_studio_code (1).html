@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大汐止機場接送</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #28a745; /* 綠色 */
+            --secondary-color: #007bff; /* 藍色 */
+            --accent-color: #ffc107; /* 黃色 */
+            --text-color: #343a40;
+            --light-bg: #f8f9fa;
+            --dark-bg: #e9ecef;
+            --white: #ffffff;
+            --border-color: #dee2e6;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            font-size: 2.8em;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        h1::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .service-section {
+            margin-bottom: 50px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            background-color: var(--white);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .service-section h2 {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            font-weight: 700;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--dark-bg);
+        }
+
+        .image-wrapper {
+            text-align: center;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+        .image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .image-wrapper img:hover {
+            transform: scale(1.02);
+        }
+
+        /* 表格樣式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px 8px;
+            text-align: center;
+        }
+        th {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            font-weight: 700;
+            white-space: nowrap; /* 防止標題換行 */
+        }
+        tr:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+        tr:hover {
+            background-color: #e2f2f7; /* 淺藍色懸停效果 */
+        }
+        td {
+            color: var(--text-color);
+        }
+        
+        .note {
+            text-align: center;
+            margin-top: 25px;
+            font-style: italic;
+            color: #6c757d;
+            font-size: 1.05em;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2.2em;
+            }
+            .service-section h2 {
+                font-size: 1.8em;
+            }
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr {
+                border: 1px solid var(--border-color);
+                margin-bottom: 10px;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            td {
+                border: none;
+                border-bottom: 1px solid var(--border-color);
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+            }
+            td:last-child {
+                border-bottom: none;
+            }
+            td::before {
+                position: absolute;
+                top: 0;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: 700;
+                color: #495057;
+            }
+
+            /* 為每個 td 元素添加 data-label 屬性以顯示標題 */
+            td:nth-of-type(1)::before { content: "地點"; }
+            td:nth-of-type(2)::before { content: "五人座 (國產車)"; }
+            td:nth-of-type(3)::before { content: "五人座 (進口車)"; }
+            td:nth-of-type(4)::before { content: "九人座 (國產車)"; }
+            td:nth-of-type(5)::before { content: "九人座 (進口車)"; }
+            /* 針對桃園機場接送的表格有兩層標題做調整 */
+            .service-section:first-of-type td:nth-of-type(1)::before { content: "地點"; }
+            .service-section:first-of-type td:nth-of-type(2)::before { content: "五人座 國產車"; }
+            .service-section:first-of-type td:nth-of-type(3)::before { content: "五人座 進口車"; }
+            .service-section:first-of-type td:nth-of-type(4)::before { content: "九人座 國產車"; }
+            .service-section:first-of-type td:nth-of-type(5)::before { content: "九人座 進口車"; }
+            
+            td:nth-of-type(1)::before { content: "乘坐人數"; }
+            td:nth-of-type(2)::before { content: "高級轎車 (5人)"; }
+            td:nth-of-type(3)::before { content: "休旅車 (5人)"; }
+            td:nth-of-type(4)::before { content: "九人座商務車 (9人)"; }
+        }
+
+        /* 隱藏行動版表格的原始 TH */
+        @media (max-width: 768px) {
+            .responsive-table thead {
+                display: none;
+            }
+        }
+
+        /* 特定表格的 data-label 調整 */
+        .taoyuan-table td:nth-of-type(1)::before { content: "地點"; }
+        .taoyuan-table td:nth-of-type(2)::before { content: "五人座 國產車"; }
+        .taoyuan-table td:nth-of-type(3)::before { content: "五人座 進口車"; }
+        .taoyuan-table td:nth-of-type(4)::before { content: "九人座 國產車"; }
+        .taoyuan-table td:nth-of-type(5)::before { content: "九人座 進口車"; }
+
+        .songshan-table td:nth-of-type(1)::before { content: "地點"; }
+        .songshan-table td:nth-of-type(2)::before { content: "五人座 (國產車)"; }
+        .songshan-table td:nth-of-type(3)::before { content: "五人座 (進口車)"; }
+        .songshan-table td:nth-of-type(4)::before { content: "九人座 (國產車)"; }
+        .songshan-table td:nth-of-type(5)::before { content: "九人座 (進口車)"; }
+
+        .charter-table td:nth-of-type(1)::before { content: "乘坐人數"; }
+        .charter-table td:nth-of-type(2)::before { content: "高級轎車 (5人)"; }
+        .charter-table td:nth-of-type(3)::before { content: "休旅車 (5人)"; }
+        .charter-table td:nth-of-type(4)::before { content: "九人座商務車 (9人)"; }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>機場接送與包車旅遊服務</h1>
+
+        <div class="service-section">
+            <h2>桃園機場接送</h2>
+            <div class="image-wrapper">
+                
+            </div>
+            <table class="taoyuan-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">地點</th>
+                        <th colspan="2">五人座</th>
+                        <th colspan="2">九人座</th>
+                    </tr>
+                    <tr>
+                        <th>國產車</th>
+                        <th>進口車</th>
+                        <th>國產車</th>
+                        <th>進口車</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>桃園市 (中壢)</td>
+                        <td>送機 700 / 接機 800</td>
+                        <td>送機 1000 / 接機 1100</td>
+                        <td>送機 1200 / 接機 1200</td>
+                        <td>送機 1500 / 接機 1600</td>
+                    </tr>
+                    <tr>
+                        <td>桃園市 (楊梅)</td>
+                        <td>送機 900 / 接機 900</td>
+                        <td>送機 1200 / 接機 1200</td>
+                        <td>送機 1400 / 接機 1400</td>
+                        <td>送機 1500 / 接機 1600</td>
+                    </tr>
+                    <tr>
+                        <td>新北市 五股區、新莊區、三重區</td>
+                        <td>送機 1000 / 接機 1000</td>
+                        <td>送機 1300 / 接機 1300</td>
+                        <td>送機 1500 / 接機 1500</td>
+                        <td>送機 1700 / 接機 1800</td>
+                    </tr>
+                    <tr>
+                        <td>新北市 (台北南港區)</td>
+                        <td>送機 1100 / 接機 1100</td>
+                        <td>送機 1300 / 接機 1300</td>
+                        <td>送機 1500 / 接機 1600</td>
+                        <td>送機 1800 / 接機 1900</td>
+                    </tr>
+                    <tr>
+                        <td>新北市 (三峽區)</td>
+                        <td>送機 900 / 接機 1100</td>
+                        <td>送機 1300 / 接機 1300</td>
+                        <td>送機 1400 / 接機 1500</td>
+                        <td>送機 1600 / 接機 1600</td>
+                    </tr>
+                    <tr>
+                        <td>台北市 (文山區、北投區、松山區)</td>
+                        <td>送機 1100 / 接機 1200</td>
+                        <td>送機 1400 / 接機 1500</td>
+                        <td>送機 1600 / 接機 1600</td>
+                        <td>送機 1800 / 接機 1800</td>
+                    </tr>
+                    <tr>
+                        <td>新北市 (汐止、淡水、深坑、石碇、新店、文山、安坑及偏遠山區)</td>
+                        <td>送機 1200 / 接機 1300</td>
+                        <td>送機 1400 / 接機 1500</td>
+                        <td>送機 1600 / 接機 1700</td>
+                        <td>送機 1800 / 接機 1800</td>
+                    </tr>
+                    <tr>
+                        <td>礁溪</td>
+                        <td>送機 2000 / 接機 2100</td>
+                        <td>送機 2200 / 接機 2300</td>
+                        <td>送機 2300 / 接機 2400</td>
+                        <td>送機 2600 / 接機 2700</td>
+                    </tr>
+                    <tr>
+                        <td>宜蘭</td>
+                        <td>送機 2300 / 接機 2400</td>
+                        <td>送機 2500 / 接機 2700</td>
+                        <td>送機 2700 / 接機 2800</td>
+                        <td>送機 3000 / 接機 3100</td>
+                    </tr>
+                    <tr>
+                        <td>羅東</td>
+                        <td>送機 2500 / 接機 2600</td>
+                        <td>送機 2700 / 接機 2800</td>
+                        <td>送機 2900 / 接機 3000</td>
+                        <td>送機 3200 / 接機 3300</td>
+                    </tr>
+                    <tr>
+                        <td>蘇澳</td>
+                        <td>送機 2700 / 接機 2800</td>
+                        <td>送機 2900 / 接機 3000</td>
+                        <td>送機 3100 / 接機 3200</td>
+                        <td>送機 3400 / 接機 3500</td>
+                    </tr>
+                    <tr>
+                        <td>基隆</td>
+                        <td>1500</td>
+                        <td>1800</td>
+                        <td>2000</td>
+                        <td>2300</td>
+                    </tr>
+                    <tr>
+                        <td>新竹</td>
+                        <td>送機 1200 / 接機 1300</td>
+                        <td>1700</td>
+                        <td>送機 1700 / 接機 1800</td>
+                        <td>2000</td>
+                    </tr>
+                    <tr>
+                        <td>苗栗</td>
+                        <td>2300</td>
+                        <td>2500</td>
+                        <td>2700</td>
+                        <td>3000</td>
+                    </tr>
+                    <tr>
+                        <td>台中</td>
+                        <td>送機 2600 / 接機 2600</td>
+                        <td>3100</td>
+                        <td>送機 3000 / 接機 3000</td>
+                        <td>3500</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="note">偏遠地區、台中以南地區需另行報價。歡迎加 LINE 洽詢～</p>
+        </div>
+
+        <div class="service-section">
+            <h2>松山機場接送</h2>
+            <div class="image-wrapper">
+                
+            </div>
+            <table class="songshan-table">
+                <thead>
+                    <tr>
+                        <th>地點</th>
+                        <th>五人座 (國產車)</th>
+                        <th>五人座 (進口車)</th>
+                        <th>九人座 (國產車)</th>
+                        <th>九人座 (進口車)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>台北市</td>
+                        <td>600</td>
+                        <td>900</td>
+                        <td>1000</td>
+                        <td>1200</td>
+                    </tr>
+                    <tr>
+                        <td>三峽</td>
+                        <td>900</td>
+                        <td>1200</td>
+                        <td>1400</td>
+                        <td>1600</td>
+                    </tr>
+                    <tr>
+                        <td>桃園</td>
+                        <td>1000</td>
+                        <td>1400</td>
+                        <td>1400</td>
+                        <td>1600</td>
+                    </tr>
+                    <tr>
+                        <td>中壢</td>
+                        <td>1000</td>
+                        <td>1300</td>
+                        <td>1500</td>
+                        <td>1800</td>
+                    </tr>
+                    <tr>
+                        <td>楊梅</td>
+                        <td>1200</td>
+                        <td>1500</td>
+                        <td>1700</td>
+                        <td>2000</td>
+                    </tr>
+                    <tr>
+                        <td>新竹</td>
+                        <td>2000</td>
+                        <td>2300</td>
+                        <td>2600</td>
+                        <td>3000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="service-section">
+            <h2>包車旅遊</h2>
+            <div class="image-wrapper">
+                
+            </div>
+            <table class="charter-table">
+                <thead>
+                    <tr>
+                        <th>乘坐人數</th>
+                        <th>高級轎車 (5人)</th>
+                        <th>休旅車 (5人)</th>
+                        <th>九人座商務車 (9人)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>包車 3小時</td>
+                        <td>NT2500</td>
+                        <td>NT3000</td>
+                        <td>NT3600</td>
+                    </tr>
+                    <tr>
+                        <td>包車 8小時</td>
+                        <td>NT4000</td>
+                        <td>NT4500</td>
+                        <td>NT6000</td>
+                    </tr>
+                    <tr>
+                        <td>包車 9小時</td>
+                        <td>NT5000</td>
+                        <td>NT5500</td>
+                        <td>NT7000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
